@@ -2,6 +2,14 @@
 
 A low-latency, multi-modal gesture music engine connecting physical movements, computer vision, and smartphone kinematics directly to **REAPER DAW** via MIDI and Open Sound Control (OSC).
 
+> [!NOTE]
+> ### ⚠️ Project Status: Work In Progress & Call for Contributions
+> **Please Note: This is an active work in progress and NOT a completed project.**
+>
+> **The Vision**: The ultimate goal of this project is to build a truly amazing **AI-generated music generator** that uses the physical gestures of the user as real-time continuous input, enabling beautiful, expressive AI-generated music that dynamically breathes and flows according to how the conductor moves.
+>
+> **Community Contributions**: Because I do not currently have enough time to dedicate to developing this project to its full potential, **I warmly welcome and encourage contributions of any kind**! Whether you are interested in generative audio AI models (e.g. MusicLM, AudioCraft, RAVE, stable audio, diffusion models), real-time gesture tracking, MIDI/DSP processing, or DAW integrations, please feel free to fork, open discussions, submit pull requests, or collaborate.
+
 ---
 
 ## 🌟 Overview & Features
@@ -144,6 +152,22 @@ python mock_kinematics_emitter.py --port 5005
 ├── pose_landmarker_full.task    # MediaPipe high-accuracy 3D pose model
 └── pose_landmarker.task         # MediaPipe standard 3D pose model
 ```
+
+---
+
+## 💡 The Grand Vision & Community Contributions
+
+This project is in its early stages as an experimental prototype bridging physical gestures and digital audio workstations.
+
+- **The Goal**: Transition from rule-based / Markov algorithmic MIDI triggers to a deep, expressive **AI music generator** that interprets subtle physical gestures (tempo, velocity, emotion, arm altitude, tension) and outputs rich, evolving musical compositions in real time.
+- **Why We Need You**: Due to limited personal bandwidth and time constraints, I cannot develop this vision alone. 
+- **How to Contribute**:
+  - Integrating real-time generative audio AI models (e.g., MusicGen/AudioCraft, RAVE, neural synths, Magenta).
+  - Enhancing latent space modulation via IMU and optical flow vectors.
+  - Expanding DAW templates and VST instrument configurations.
+  - Improving gesture recognition robustness and latency optimization.
+
+If this idea excites you, please **fork the repo**, submit **pull requests**, or **open an issue/discussion** to collaborate!
 
 ---
 

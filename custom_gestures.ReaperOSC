@@ -1,0 +1,83 @@
+# ==============================================================================
+# REAPER NATIVE OSC PATTERN CONFIGURATION: custom_gestures.ReaperOSC
+# ==============================================================================
+# Place this file in your REAPER OSC directory:
+# Windows: %APPDATA%\REAPER\OSC\custom_gestures.ReaperOSC
+#
+# Enable in REAPER:
+# Preferences -> Control/OSC/web -> Add -> Control Surface Mode: OSC (Open Sound Control)
+# Pattern config: custom_gestures.ReaperOSC
+# Mode: Configure device
+# Receive port: 5005
+# ==============================================================================
+
+DEVICE_NAME "Gesture_Kinematics_Engine"
+
+# ------------------------------------------------------------------------------
+# 1. KINEMATIC OSC TO MIDI CC DIRECT MAPPING (Zero-Latency Parameter Swells)
+# ------------------------------------------------------------------------------
+# Maps incoming gesture streams directly to MIDI CC controllers:
+# MIDI CC 1  (Modulation Wheel - Dynamics / Velocity)
+# MIDI CC 11 (Expression Wheel - Altitude / Height Swell)
+# MIDI CC 91 (Reverb / Width - Hand Distance)
+
+# Bind /kinematics & /kinematics/velocity float/int to MIDI CC1 (Dynamics)
+MIDI_CC f/kinematics 176 1
+MIDI_CC i/kinematics 176 1
+MIDI_CC f/kinematics/velocity 176 1
+MIDI_CC i/kinematics/velocity 176 1
+
+# Bind /kinematics/altitude float/int to MIDI CC11 (Expression Swell)
+MIDI_CC f/kinematics/altitude 176 11
+MIDI_CC i/kinematics/altitude 176 11
+MIDI_CC f/kinematics/exp 176 11
+MIDI_CC i/kinematics/exp 176 11
+
+# Bind /kinematics/distance float/int to MIDI CC91 (Reverb/Width)
+MIDI_CC f/kinematics/distance 176 91
+MIDI_CC i/kinematics/distance 176 91
+
+# ------------------------------------------------------------------------------
+# 2. TRACK PARAMETER CONTROL PATTERNS
+# ------------------------------------------------------------------------------
+# Explicit track mute & volume control (used by external state machine)
+TRACK_MUTE b/track/@/mute
+TRACK_VOLUME f/track/@/volume
+TRACK_PAN f/track/@/pan
+TRACK_SOLO b/track/@/solo
+
+# ------------------------------------------------------------------------------
+# 3. DIRECT FX PARAMETER MODULATION
+# ------------------------------------------------------------------------------
+# Map incoming /kinematics directly to Track 1 FX 1 Parameter 1 (Filter/Expression)
+FX_PARAM_VALUE f/kinematics f/track/1/fx/1/fxparam/1/value
+FX_PARAM_VALUE f/kinematics/altitude f/track/1/fx/1/fxparam/2/value
+
+# Map secondary gestures to Track 2 FX parameters
+FX_PARAM_VALUE f/kinematics/exp f/track/2/fx/1/fxparam/1/value
+FX_PARAM_VALUE f/kinematics/distance f/track/2/fx/1/fxparam/2/value
+
+# ------------------------------------------------------------------------------
+# 5. GENERATIVE MIDI NOTE TRIGGER PATTERNS (Channel-Specific Track Routing)
+# ------------------------------------------------------------------------------
+# Channel 1 (144) -> Track 1 Strings
+MIDI_NOTE i/track/1/note/@ 144 @
+MIDI_NOTE i/vkb/note/@ 144 @
+
+# Channel 2 (145) -> Track 2 Brass
+MIDI_NOTE i/track/2/note/@ 145 @
+
+# Channel 3 (146) -> Track 3 Percussion
+MIDI_NOTE i/track/3/note/@ 146 @
+
+# Generic Note Map
+MIDI_NOTE i/note/@ 144 @
+
+# ------------------------------------------------------------------------------
+# 4. TRANSPORT & ACTION TRIGGER PATTERNS
+# ------------------------------------------------------------------------------
+ACTION i/action/@
+PLAY b/play
+STOP b/stop
+RECORD b/record
+MARKER_GOTO i/marker/@
